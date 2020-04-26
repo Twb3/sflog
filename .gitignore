@@ -1,0 +1,12 @@
+target/
+.idea/
+*.iml
+.java-version
+.jenv-version
+.class
+.log
+.jar
+.war
+.zip
+.tar.gz
+*.DS_Store
