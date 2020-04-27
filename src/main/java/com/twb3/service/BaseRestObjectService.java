@@ -1,7 +1,6 @@
 package com.twb3.service;
 
 import com.twb3.model.salesforce.rest.request.BaseSObjectRequest;
-import com.twb3.model.salesforce.rest.response.DeleteResponse;
 import com.twb3.model.salesforce.rest.response.GetResponse;
 import com.twb3.model.salesforce.rest.response.PostResponse;
 
@@ -12,5 +11,5 @@ public interface BaseRestObjectService {
 
     GetResponse doGet(String id, int retryCount);
     PostResponse doPost(BaseSObjectRequest baseSObjectRequest, int retryCount);
-    DeleteResponse doDelete(int retryCount);
+    boolean doDelete(String id, int retryCount);
 }

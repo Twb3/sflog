@@ -13,7 +13,7 @@ import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name = "set", description = "Trace flag related commands.")
+@CommandLine.Command(name = "set", description = "Set a trace-flag.")
 public class TraceFlagSetCommand implements Callable<Integer> {
     private final static transient Logger logger = LoggerFactory.getLogger(TraceFlagSetCommand.class);
 

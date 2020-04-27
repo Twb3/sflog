@@ -7,12 +7,12 @@ import com.twb3.helper.ErrorHelper;
 import com.twb3.manager.AuthManager;
 import com.twb3.model.salesforce.rest.request.TraceFlagRequest;
 import com.twb3.model.salesforce.rest.request.BaseSObjectRequest;
-import com.twb3.model.salesforce.rest.response.DeleteResponse;
 import com.twb3.model.salesforce.rest.response.GetResponse;
 import com.twb3.model.salesforce.rest.response.PostResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -73,7 +73,28 @@ public class TraceFlagObjectService implements BaseRestObjectService {
     }
 
     @Override
-    public DeleteResponse doDelete(int retryCount) {
-        return null;
+    public boolean doDelete(String id, int retryCount) {
+        HttpClient httpClient = HttpClients.createDefault();
+        HttpDelete httpDelete = new HttpDelete(org.getInstanceUrl() + TOOLING_CONNECTION_ENDPOINT + OBJECT_ENDPOINT_PART + id);
+        httpDelete.addHeader("Authorization", "Bearer " + org.getAccessToken());
+        try {
+            logger.debug("Deleting trace-flag with id {} in org {}", id, org.getName());
+            HttpResponse httpResponse = httpClient.execute(httpDelete);
+            if (httpResponse.getStatusLine().getStatusCode() == 401) {
+                logger.debug("Received a 401 response code from Salesforce.  Will now reauthorize. Number of tries left: {}",
+                        retryCount);
+                AuthManager.refreshToken(org);
+                if (retryCount < 1) {
+                    throw new RuntimeException("Retry count exceeded.  Failed to connect.");
+                }
+                return doDelete(id, --retryCount);
+            }
+            if (httpResponse.getStatusLine().getStatusCode() == 204) {
+                return true;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("An unexpected error has occurred while deleting trace-flag in target org.", e);
+        }
+        return false;
     }
 }

@@ -3,7 +3,6 @@ package com.twb3.service;
 import com.twb3.Org;
 import com.twb3.manager.AuthManager;
 import com.twb3.model.salesforce.rest.request.BaseSObjectRequest;
-import com.twb3.model.salesforce.rest.response.DeleteResponse;
 import com.twb3.model.salesforce.rest.response.GetResponse;
 import com.twb3.model.salesforce.rest.response.PostResponse;
 import org.apache.http.HttpEntity;
@@ -63,7 +62,7 @@ public class ApexLogObjectService implements BaseRestObjectService {
     }
 
     @Override
-    public DeleteResponse doDelete(int retryCount) {
-        return null;
+    public boolean doDelete(String id, int retryCount) {
+        return false;
     }
 }
