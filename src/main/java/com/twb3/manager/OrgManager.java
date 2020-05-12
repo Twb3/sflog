@@ -48,7 +48,7 @@ public class OrgManager {
 
         Scanner userInput = new Scanner(System.in);
         while(true) {
-            System.out.print("Unique name for this org (this will be used for tailing): ");
+            System.out.print("Unique name for this org: ");
             String name = userInput.nextLine().trim();
             if (orgs.stream().noneMatch(org -> org.getName().equals(name))) {
                 newOrg.setName(name);
