@@ -143,4 +143,18 @@ public class OrgManager {
             throw new RuntimeException("Failed to read file.  This should not happen.", e);
         }
     }
+
+    public static void listOrgs() {
+        List<Org> orgs = loadOrgs();
+        String separator = "=============================";
+        for (Org org : orgs) {
+            logger.info(separator);
+            if (org.getSelected()) {
+                logger.info("** SELECTED **");
+            }
+            logger.info("Name: {}", org.getName());
+            logger.info("Is Production?: {}", org.getIsProduction());
+        }
+        logger.info(separator);
+    }
 }

@@ -42,7 +42,7 @@ sflog org connect
 
 ## Usage
 
-- `sflog org [add, remove, use, connect]`
+- `sflog org [add, remove, use, list, connect]`
 - `sflog logs [get]`
 - `sflog trace-flag [set, delete]`
 

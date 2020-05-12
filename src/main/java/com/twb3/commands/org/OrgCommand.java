@@ -10,7 +10,8 @@ import java.util.concurrent.Callable;
                 OrgAddCommand.class,
                 OrgRemoveCommand.class,
                 OrgUseCommand.class,
-                OrgConnectCommand.class
+                OrgConnectCommand.class,
+                OrgListCommand.class
         }
 )
 public class OrgCommand implements Callable<Integer> {
